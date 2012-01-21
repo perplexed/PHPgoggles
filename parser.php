@@ -1,26 +1,26 @@
 <?php
-
 /* 
-	PHP Google Goggles(TM) Response Parser
+    PHP Google Goggles(TM) Response Parser
 
-	This cose is based on deetch's python project hosted at:
-   	https://github.com/deetch/goggles-experiment
+    This cose is based on deetch's python project hosted at:
+    https://github.com/deetch/goggles-experiment
    
-	This file is part of PHPgoggles.
+    This file is part of PHPgoggles.
 
-	PHPgoggles is free software: you can redistribute it and/or modify
-	it under the terms of the GNU General Public License as published by
-	the Free Software Foundation, either version 3 of the License, or
-	(at your option) any later version.
+    PHPgoggles is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
 
-	PHPgoggles is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	GNU General Public License for more details.
+    PHPgoggles is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
-	You should have received a copy of the GNU General Public License
-	along with PHPgoggles.  If not, see <http://www.gnu.org/licenses/>.
-   The author is in no way affiliated with Google Inc.
+    You should have received a copy of the GNU General Public License
+    along with PHPgoggles.  If not, see <http://www.gnu.org/licenses/>.
+    
+	The author is in no way affiliated with Google Inc.
 */
    
 session_start();
@@ -118,33 +118,35 @@ function parse_xml($input, $dict){
 	$output = "";
 	foreach (get_data($input) as $val){
 		list($dtype, $field, $data) = $val;
-		$d = $dict[$field];
-		if ($d['isValue'] == true){
-			if($dtype == 2){
-				if($d['label'] == "Trailing_Bytes"){
-				        // not sure what the trailing bytes are for
-					list(,$data) = unpack('H*', $data);
+		if (isset($dict[$field])){
+			$d = $dict[$field];
+			if ($d['isValue'] == true){
+				if($dtype == 2){
+					if($d['label'] == "Trailing_Bytes"){
+						// not sure what the trailing bytes are for
+						list(,$data) = unpack('H*', $data);
+						}
+					else {
+						// just a string
+						list(,$data) = unpack('A*', $data);
+						}
+					$dat = "<".$d['label'].">".urlencode($data)."</".$d['label'].">";
 					}
 				else {
-					// just a string
-					list(,$data) = unpack('A*', $data);
+					// all other data dtypes
+					$dat = "<".$d['label'].">".$data."</".$d['label'].">";
 					}
-				$dat = "<".$d['label'].">".urlencode($data)."</".$d['label'].">";
 				}
 			else {
-				// all other data dtypes
-				$dat = "<".$d['label'].">".$data."</".$d['label'].">";
+				// more key/value pairs
+				$dat = "<".$d['label'].">".parse_xml($data, $d['contents'])."</".$d['label'].">";
 				}
+			$output .= $dat;
 			}
-		elseif ($d['isValue'] == false){
-			// more key/value pairs
-			$dat = "<".$d['label'].">".parse_xml($data, $d['contents'])."</".$d['label'].">";
-			}	
 		else {
-			// unknown datatype
-			$dat = '<unknown_data type="'.$dtype.'" field="'.$field.'" />';
+			list(,$data) = unpack('A*', $data);
+			$dat = '<unknown_data type="'.$dtype.'" field="'.$field.'">'.$data.'</unknown_data>';
 			}
-		$output .= $dat;
 		}
 	return $output;
 	}

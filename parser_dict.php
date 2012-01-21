@@ -1,25 +1,26 @@
 <?php
 /* 
-	PHP Google Goggles(TM) Response Dictionary
+    PHP Google Goggles(TM) Response Dictionary
 
-	This cose is based on deetch's python project hosted at:
-   	https://github.com/deetch/goggles-experiment
+    This cose is based on deetch's python project hosted at:
+    https://github.com/deetch/goggles-experiment
    
-	This file is part of PHPgoggles.
+    This file is part of PHPgoggles.
 
-	PHPgoggles is free software: you can redistribute it and/or modify
-	it under the terms of the GNU General Public License as published by
-	the Free Software Foundation, either version 3 of the License, or
-	(at your option) any later version.
+    PHPgoggles is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
 
-	PHPgoggles is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	GNU General Public License for more details.
+    PHPgoggles is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
-	You should have received a copy of the GNU General Public License
-	along with PHPgoggles.  If not, see <http://www.gnu.org/licenses/>.
-   The author is in no way affiliated with Google Inc.
+    You should have received a copy of the GNU General Public License
+    along with PHPgoggles.  If not, see <http://www.gnu.org/licenses/>.
+    
+	The author is in no way affiliated with Google Inc.
 */
    
 $Coords = array(
@@ -123,19 +124,23 @@ $Info = array(
                 )
             ),
             16 => array(
-                "label" => "unknown6",
+                "label" => "unknown5",
                 "isValue" => true
             ),
             17 => array(
-                "label" => "unknown7",
+                "label" => "unknown6",
                 "isValue" => true
             ),
-            13 => array(
-                "label" => "unknown8",
+            18 => array(
+                "label" => "unknown7",
                 "isValue" => true
             ),
             19 => array(
                 "label" => "std_qur",
+                "isValue" => true
+            ),
+			20 => array(
+                "label" => "unknown8",
                 "isValue" => true
             ),
         )
