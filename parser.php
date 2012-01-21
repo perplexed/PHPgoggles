@@ -19,8 +19,8 @@
 
     You should have received a copy of the GNU General Public License
     along with PHPgoggles.  If not, see <http://www.gnu.org/licenses/>.
-    
-	The author is in no way affiliated with Google Inc.
+	
+    The author is in no way affiliated with Google Inc.
 */
    
 session_start();
